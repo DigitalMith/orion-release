@@ -1,0 +1,23 @@
+# default_config.yaml — Default Orion CNS configuration
+# -----------------------------------------------------
+# This file provides default settings for the Orion CNS system.
+# Users may override these values via:
+#   - environment variables (ORION_*)
+#   - future CLI config commands (planned)
+#
+# NOTE:
+#   All paths may be overridden and resolved relative to the current
+#   working directory (typically text-generation-webui/).
+
+chroma_path: "./user_data/Chroma-DB"
+
+embedding_model: "jinaai/jina-embeddings-v2-base-en"
+embedding_dim: 768
+
+debug_mode: false
+
+profile: orion_main
+profiles_root: user_data/orion/profiles
+
+identity_path: user_data/orion_cli/data/orion_identity.yaml
+persona_path:  user_data/orion_cli/data/orion_persona.yaml

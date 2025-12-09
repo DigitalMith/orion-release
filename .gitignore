@@ -1,0 +1,12 @@
+# Python caches
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Build metadata
+*.egg-info/
+*.dist-info/
+
+# OS noise
+.DS_Store
+Thumbs.db

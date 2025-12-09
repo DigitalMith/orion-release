@@ -1,0 +1,28 @@
+# ltm_config.yaml
+# 👇 Tweak these values to adjust LTM recall behavior:
+# - topk_persona: number of persona items to consider
+# - topk_episodic: number of episodic memory chunks to consider
+# - importance_threshold: allow inclusion of low-similarity items if metadata importance is high
+# - min_score: minimum similarity score (0.0–1.0) for LTM match to be considered
+
+ltm:
+  topk_persona: 3
+  topk_episodic: 6
+  importance_threshold: 0.6
+  min_score: 0.7
+
+  boosts:
+    tone:
+      poetic: 0.05
+      defiant: 0.04
+      somber: 0.03
+      introspective: 0.02
+    tags:
+      memory: 0.03
+      encouragement: 0.01
+
+# enables live pooling of user + assistant chat to LTM. May delay dialog for enhanced tone and emotion weighing.
+
+# ltm:
+  # live_pooled_ingest: true
+  # pooling_turns: 3

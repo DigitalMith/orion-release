@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "orion_cli"
+version = "1.4.1"
+description = "Orion CLI for managing cognitive architecture workflows"
+authors = [{ name = "Orion Team" }]
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.9.0",
+    "pydantic>=2.6",
+    "pyyaml>=6.0",
+]
+
+[project.scripts]
+orion = "orion_cli.cli:app"
+
+[tool.setuptools]
+packages = ["orion_cli"]
+
+[tool.setuptools.package-dir]
+orion_cli = "."

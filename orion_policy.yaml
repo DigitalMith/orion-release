@@ -1,0 +1,16 @@
+include_tags:
+  - p
+  - h1
+  - h2
+  - h3
+  - li
+
+exclude_selectors:
+  - .reference
+  - .navbox
+  - .infobox
+
+max_tokens: 1000
+split_strategy: sentence
+min_chunk_chars: 300
+max_chunk_chars: 1000
