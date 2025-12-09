@@ -6,7 +6,7 @@
 
 
 <p align="center">
-  <img src="orion_cli/data/orion_social_banner960.png" alt="Orion Project Banner" width="960"/>
+  <img src="user_data/orion/workspace/orion_social_banner960.png" alt="Orion Project Banner" width="960"/>
 </p>
 ---
 
