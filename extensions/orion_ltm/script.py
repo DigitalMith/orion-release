@@ -4,58 +4,146 @@ from pathlib import Path
 import yaml
 from modules import chat
 from modules.logging_colors import logger
-from orion_cli.utils.config import get_config
-from orion_cli.shared.memory import on_user_turn, on_assistant_turn
+from orion_cli.settings.config_loader import get_config
+from orion_cli.shared.memory_core import (
+    on_user_turn,
+    on_assistant_turn,
+    recall_persona,
+    recall_episodic,
+)
 
+
+# CNS 4.0 compatibility shim -----------------------------------------------
+def initialize_chromadb_for_ltm(embed_fn=None):
+    """
+    Legacy initializer for the orion_ltm extension.
+
+    In CNS 4.0, collection creation and the embedding function binding are
+    handled inside orion_cli.shared.memory_core. This shim simply returns
+    the persona and episodic collections in the legacy (persona, episodic)
+    format expected by the extension. The embed_fn argument is accepted for
+    compatibility but not used.
+    """
+    # Import inside the function to avoid circular-import weirdness
+    from orion_cli.shared.memory_core import _persona, _episodic
+
+    persona = _persona()
+    episodic = _episodic()
+    return persona, episodic
+    
+    
 # === Global State ===
 pooled_buffer = []
 _EMBED_READY = False
 _persona = _episodic = None
 
-# Load configuration safely
+# Load configuration safely (CNS 4.0 typed config -> legacy dict)
 try:
-    CONFIG = get_config()
+    raw_cfg = get_config()
+
+    if isinstance(raw_cfg, dict):
+        # Old behavior, keep as-is
+        CONFIG = raw_cfg
+    else:
+        # CNS 4.0 OrionConfig → minimal dict the extension expects
+        CONFIG = {
+            "ltm": {
+                "topk_persona": getattr(getattr(raw_cfg, "ltm", None), "topk_persona", 5),
+                "topk_episodic": getattr(getattr(raw_cfg, "ltm", None), "topk_episodic", 10),
+            },
+            "debug": {
+                "enabled": getattr(getattr(raw_cfg, "debug", None), "enabled", False),
+                "show_recall": getattr(getattr(raw_cfg, "debug", None), "show_recall", False),
+                "short_descriptions": getattr(getattr(raw_cfg, "debug", None), "short_descriptions", False),
+                "episodic_store": getattr(getattr(raw_cfg, "debug", None), "episodic_store", False),
+                "episodic_recall": getattr(getattr(raw_cfg, "debug", None), "episodic_recall", False),
+            },
+        }
 except Exception as e:
     logger.warning(f"[orion_ltm] ⚠️ Failed to load config.yaml: {e}")
-    # Safe fallback: debug disabled
+    # Safe fallback: debug disabled, default topk
     CONFIG = {
+        "ltm": {
+            "topk_persona": 5,
+            "topk_episodic": 10,
+        },
         "debug": {
             "enabled": False,
             "show_recall": False,
             "short_descriptions": False,
             "episodic_store": False,
             "episodic_recall": False,
-        }
+        },
     }
 
+# Normalize debug config for legacy checks
+if isinstance(CONFIG, dict):
+    debug_cfg = CONFIG.get("debug", {}) or {}
+else:
+    debug_cfg = {}
+    
 # === Optional Debug Recall Snapshot ===
-# Only runs if explicitly enabled in config.yaml
-debug_cfg = CONFIG.get("debug", {})
+# CNS 4.0: legacy debug recall path disabled (depends on orion_cli.utils.*).
 if debug_cfg.get("enabled") and debug_cfg.get("show_recall"):
+    logger.warning(
+        "[orion_ltm] ⚠️ Debug recall snapshot is disabled in CNS 4.0 "
+        "(legacy orion_cli.utils.chroma_utils is no longer available)."
+    )
+
+
+def get_relevant_ltm(query, *args, **kwargs):
+    """
+    CNS 4.0-compatible replacement for the old orion_cli.shared.memory.get_relevant_ltm.
+
+    Signature is intentionally loose so it can accept legacy positional
+    args like (query, persona_collection, episodic_collection, ...).
+    Collections are ignored; memory_core manages them internally.
+    """
+    # Read top-k either from kwargs or legacy CONFIG dict
+    ltm_cfg = CONFIG.get("ltm", {}) if isinstance(CONFIG, dict) else {}
+    topk_persona = int(kwargs.get("topk_persona", ltm_cfg.get("topk_persona", 5)))
+    topk_episodic = int(kwargs.get("topk_episodic", ltm_cfg.get("topk_episodic", 10)))
+    return_debug = bool(kwargs.get("return_debug", False))
+
+    # --- Persona recall ---
     try:
-        print("\n[DEBUG] === Orion LTM Recall Snapshot ===")
-
-        # Lazy import to avoid circulars
-        from orion_cli.utils.chroma_utils import get_client
-
-        client = get_client()
-        persona_coll = client.get_or_create_collection("persona")
-        episodic_coll = client.get_or_create_collection("orion_episodic_ltm")
-
-        persona_docs = persona_coll.get(limit=3).get("documents", [])
-        episodic_docs = episodic_coll.get(limit=3).get("documents", [])
-
-        print("\n[DEBUG] --- Persona Recall ---")
-        for i, d in enumerate(persona_docs[:3]):
-            print(f"[{i}] {d[:120]}...")
-
-        print("\n[DEBUG] --- Episodic Recall ---")
-        for i, d in enumerate(episodic_docs[:3]):
-            print(f"[{i}] {d[:120]}...")
-
-        print("[DEBUG] ==========================\n")
+        persona_docs = recall_persona(query, top_k=topk_persona) or []
     except Exception as e:
-        logger.warning(f"[orion_ltm] ⚠️ Debug recall failed: {e}")
+        logger.warning(f"[orion_ltm] persona recall failed: {e}")
+        persona_docs = []
+
+    # --- Episodic recall ---
+    try:
+        episodic_docs = recall_episodic(query, top_k=topk_episodic) or []
+    except Exception as e:
+        logger.warning(f"[orion_ltm] episodic recall failed: {e}")
+        episodic_docs = []
+
+    # Build the text block we’ll prepend to the user input
+    blocks = []
+    if persona_docs:
+        blocks.append(
+            "### Relevant Persona Memory\n"
+            + "\n".join(f"- {d}" for d in persona_docs if d)
+        )
+    if episodic_docs:
+        blocks.append(
+            "### Relevant Episodic Memory\n"
+            + "\n".join(f"- {d}" for d in episodic_docs if d)
+        )
+
+    memory_text = "\n\n".join(blocks).strip()
+
+    if not return_debug:
+        # Old behavior: just the text
+        return memory_text
+
+    # Newer behavior: return text + debug payload
+    dbg = {
+        "persona": [{"doc": d} for d in persona_docs],
+        "episodic": [{"doc": d} for d in episodic_docs],
+    }
+    return memory_text, dbg
 
 
 def _debug(msg: str):
@@ -101,26 +189,17 @@ def estimate_tone_and_tags(text: str) -> dict:
 def setup():
     """Initialize ChromaDB collections for persona and episodic memory."""
     global _EMBED_READY, _persona, _episodic
-    global get_relevant_ltm, on_user_turn, on_assistant_turn  # ensure global linkage
 
     try:
-        from orion_cli.utils.embedding import EMBED_FN
-        from orion_cli.shared.memory import (
-            initialize_chromadb_for_ltm,
-            get_relevant_ltm,
-            on_user_turn,
-            on_assistant_turn,
-        )
-
-        # 🧠 initialize_chromadb_for_ltm returns (persona, episodic)
-        _persona, _episodic = initialize_chromadb_for_ltm(EMBED_FN)
+        # Use the CNS 4.0 shim to get bound collections
+        _persona, _episodic = initialize_chromadb_for_ltm()
 
         _EMBED_READY = True
         logger.info(
             "[orion_ltm] ✅ setup() completed: episodic and persona initialized."
         )
         logger.debug(
-            "[orion_ltm] LTM functions and shared memory hooks loaded successfully."
+            "[orion_ltm] LTM collections and shared memory hooks loaded successfully."
         )
     except Exception as e:
         logger.error(f"[orion_ltm] ❌ setup() failed: {e}")
@@ -224,7 +303,8 @@ def output_modifier(*args, **kwargs):
         if isinstance(state, dict):
             last_user = (state.get("context") or "").strip()
 
-        on_assistant_turn(reply, _episodic, last_user_input=last_user)
+        # CNS 4.0: uses internal episodic binding; no positional collection arg
+        on_assistant_turn(reply, last_user_input=last_user)
 
     except Exception as e:
         logger.error(f"[orion_ltm] output_modifier failed: {e}")
@@ -255,7 +335,8 @@ def before_chat_input(text):
         if _episodic:
             from orion_cli.shared.memory import on_user_turn
 
-            on_user_turn(text, _episodic)
+            # CNS 4.0: episodic collection is handled internally
+            on_user_turn(text)
             _debug("User input stored to episodic memory.")
         else:
             _debug("Episodic collection not available at input time.")
@@ -269,7 +350,8 @@ def after_chat_output(reply, last_user_input=None):
         if _episodic:
             from orion_cli.shared.memory import on_assistant_turn
 
-            on_assistant_turn(reply, _episodic, last_user_input)
+            # CNS 4.0: no positional episodic argument
+            on_assistant_turn(reply, last_user_input=last_user_input)
             _debug("Assistant reply stored to episodic memory.")
         else:
             _debug("Episodic collection not available at output time.")

@@ -211,6 +211,29 @@ def memory_stats() -> Dict[str, Any]:
     }
 
 
+def on_user_turn(text: str, **metadata) -> None:
+    """
+    Legacy hook used by the orion_ltm extension for user messages.
+
+    Thin wrapper around add_episodic_entry so CNS 3.x-style extension
+    code keeps working on CNS 4.0.
+    """
+    meta = {"role": "user", "source": "tgwui"}
+    if metadata:
+        meta.update(metadata)
+    add_episodic_entry(text, metadata=meta, min_length=10)
+
+
+def on_assistant_turn(text: str, **metadata) -> None:
+    """
+    Legacy hook used by the orion_ltm extension for assistant messages.
+    """
+    meta = {"role": "assistant", "source": "tgwui"}
+    if metadata:
+        meta.update(metadata)
+    add_episodic_entry(text, metadata=meta, min_length=10)
+
+
 __all__ = [
     "add_persona_entry",
     "add_episodic_entry",
@@ -219,4 +242,6 @@ __all__ = [
     "memory_stats",
     "PERSONA_COLLECTION",
     "EPISODIC_COLLECTION",
+    "on_user_turn",
+    "on_assistant_turn",
 ]
