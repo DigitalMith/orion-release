@@ -1,0 +1,23 @@
+# === Orion CNS 4.0 User Configuration ===
+
+# Storage path for ChromaDB
+chroma_path: "user_data/orion/chromadb"
+
+# use "vendor/model_name" as used by HF embedding frameworks
+embed_model_path: "user_data/orion/embeddings/jinaai-jina-v2-base-en"
+embedding_model: "jinaai/jina-embeddings-v2-base-en"
+embedding_dim: 768
+
+# === Persona Rigidity ===
+persona:
+  rigidity: 0.5
+
+# === Debug Settings ===
+debug:
+  enabled: true
+  logic: false
+  cognitive: false
+  show_recall: true
+  episodic_recall: true
+  episodic_store: true
+  short_descriptions: true

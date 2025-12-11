@@ -10,3 +10,4 @@ __pycache__/
 # OS noise
 .DS_Store
 Thumbs.db
+update_orion.py

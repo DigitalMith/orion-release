@@ -212,6 +212,137 @@ Entry point:
 
 This version is primarily about stability, portability, and future-proofing embeddings before deeper refactors.
 ---
+ ## Installation (Quick Start)
+
+Orion runs inside text-generation-webui (TGWUI) and uses ChromaDB plus the Orion CLI for long-term memory.
+
+### 0. Requirements
+
+- Python 3.11+
+- Git  
+- A working text-generation-webui install  
+- Windows 11 + PowerShell 7 (primary target)
+
+---
+
+### 1. Install text-generation-webui
+
+Follow the TGWUI project’s instructions and make sure you can:
+
+- start TGWUI  
+- load a model  
+- open the web UI  
+
+Example layout (Windows):
+
+```text
+C:\Orion\text-generation-webui\
+    models\
+    user_data\
+    extensions\
+```
+
+---
+
+### 2. Copy Orion into TGWUI
+
+Clone or download this repo, then copy its contents into your TGWUI folder so you end up with:
+
+```text
+C:\Orion\text-generation-webui\
+    start_orion.bat
+    start_orion.sh
+    launch_orion.py
+    orion_policy.yaml
+    extensions\orion_ltm\
+    user_data\orion\
+    user_data\orion_cli\
+    user_data\characters\
+```
+
+Adjust paths if your TGWUI folder lives somewhere else.
+
+---
+
+### 3. Create a virtual environment for Orion
+
+From your TGWUI root in PowerShell:
+
+```powershell
+cd C:\Orion\text-generation-webui
+python -m venv venv-orion
+.\venv-orion\Scripts\Activate.ps1
+pip install --upgrade pip
+```
+
+---
+
+### 4. Install ChromaDB and Orion dependencies
+
+With venv-orion activated:
+
+```powershell
+pip install chromadb sentence-transformers pyyaml
+```
+
+If this repo includes a requirements file for the CLI, you can instead do:
+
+```powershell
+pip install -r user_data\orion_cli\requirements.txt
+```
+
+---
+
+### 5. Install the Orion CLI
+
+From inside the CLI folder:
+
+```powershell
+cd C:\Orion\text-generation-webui\user_data\orion_cli
+pip install -e . --no-deps
+orion --help
+```
+
+If the ~orion~ command prints its help text, the CLI is installed.
+
+---
+
+### 6. Start TGWUI with Orion
+
+From the TGWUI root:
+
+```powershell
+.\start_orion.bat
+```
+
+(on Linux/macOS, use ~./start_orion.sh~ instead)
+
+This starts TGWUI with the Orion extension and Orion’s long-term memory layer enabled.
+
+---
+
+### Optional: Starter Persona Database
+
+If this repo includes a starter Chroma database, you can copy it into place on a fresh install to get a default persona immediately.
+
+Example layout:
+
+```text
+user_data\orion\chromadb_seed\chroma.sqlite3
+```
+
+Copy the seed DB into the live Chroma directory if no DB exists yet:
+
+```powershell
+# PowerShell, from TGWUI root
+Copy-Item `
+  "user_data\orion\chromadb_seed\chroma.sqlite3" `
+  "user_data\orion\chromadb\chroma.sqlite3" `
+  -Force
+```
+
+You can later rebuild the database from ~persona.yaml~ and logs using the Orion CLI if you want a clean or customized memory.
+---
 
 ## Planned: AI-Assisted Install & Setup
 
