@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ---
 
+## [3.50.0] - 2025-12-22
+
+### Fixed
+- Patched CLI semantic seeding to restore missing imports (`get_config`, `run_archivist_extract`) and eliminate runtime NameErrors.
+- Stabilized TGWUI extension hook lifecycle by removing unsafe teardown patterns and redundant setup calls.
+- Prevented UI hangs after first reply by making assistant-turn persistence non-blocking (episodic store runs best-effort without blocking generation completion).
+
+### Changed
+- Simplified LTM injection flow to avoid duplicate recall work per turn when using system-prompt injection.
+
 ## [3.49.0] - 2025-12-05
 
 ### Added

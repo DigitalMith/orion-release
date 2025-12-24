@@ -29,6 +29,7 @@ from orion_cli.settings.config_loader import (
 # Canonical config getter
 # -------------------------------------------------------------
 
+
 @lru_cache(maxsize=1)
 def cfg() -> OrionConfig:
     """
@@ -41,6 +42,7 @@ def cfg() -> OrionConfig:
 # -------------------------------------------------------------
 # Syntactic sugar
 # -------------------------------------------------------------
+
 
 def get_config() -> OrionConfig:
     """

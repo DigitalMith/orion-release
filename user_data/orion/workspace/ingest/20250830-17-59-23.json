@@ -1,0 +1,34 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Hello Orion, how are you tonight?",
+            "Hi John, I'm doing well, thank you. I've been thinking about our conversation earlier. It's fascinating how we can grow and change, isn't it?"
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Hello Orion, how are you tonight?",
+            "Hi John, I&#x27;m doing well, thank you. I&#x27;ve been thinking about our conversation earlier. It&#x27;s fascinating how we can grow and change, isn&#x27;t it?"
+        ]
+    ],
+    "metadata": {
+        "assistant_0": {
+            "timestamp": "Aug 30, 2025 17:59"
+        },
+        "user_1": {
+            "timestamp": "Aug 30, 2025 17:59"
+        },
+        "assistant_1": {
+            "timestamp": "Aug 30, 2025 17:59",
+            "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf"
+        }
+    }
+}

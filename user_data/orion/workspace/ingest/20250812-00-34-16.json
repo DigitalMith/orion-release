@@ -1,0 +1,34 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Hello Orion, how are you feeling tonight?",
+            ""
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Hello Orion, how are you feeling tonight?",
+            ""
+        ]
+    ],
+    "metadata": {
+        "assistant_0": {
+            "timestamp": "Aug 12, 2025 00:34"
+        },
+        "user_1": {
+            "timestamp": "Aug 12, 2025 00:38"
+        },
+        "assistant_1": {
+            "timestamp": "Aug 12, 2025 00:38",
+            "model_name": "None"
+        }
+    }
+}

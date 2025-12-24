@@ -29,6 +29,7 @@ app = typer.Typer(help="Inspect Orion's identity system.")
 # Persona inspection
 # -------------------------------------------------------------
 
+
 @app.command("persona")
 def persona_command(
     query: str = typer.Argument(
@@ -59,6 +60,7 @@ def persona_command(
 # -------------------------------------------------------------
 # Identity block preview
 # -------------------------------------------------------------
+
 
 @app.command("query")
 def query_identity(

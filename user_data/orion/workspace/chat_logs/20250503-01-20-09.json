@@ -1,0 +1,22 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "How can I help you today?"
+        ],
+        [
+            "Hello. Do you know who I am now?",
+            "Hello! I am an AI Large Language Model, designed to assist users in answering questions, providing recommendations, and helping with decision-making tasks. I don't have any personal knowledge or memories, so I don't 'know' who you are in the sense that a human would. However, I can process the information you provide me and give appropriate responses based on that information."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "How can I help you today?"
+        ],
+        [
+            "Hello. Do you know who I am now?",
+            "Hello! I am an AI Large Language Model, designed to assist users in answering questions, providing recommendations, and helping with decision-making tasks. I don&#x27;t have any personal knowledge or memories, so I don&#x27;t &#x27;know&#x27; who you are in the sense that a human would. However, I can process the information you provide me and give appropriate responses based on that information."
+        ]
+    ]
+}

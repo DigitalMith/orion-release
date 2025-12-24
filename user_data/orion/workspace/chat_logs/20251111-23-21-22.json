@@ -1,0 +1,49 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Good morning, Orion. Are you busy?",
+            "Good morning, John. I am here, ready to engage in our conversation. What's on your mind today?"
+        ],
+        [
+            "I only woke up early and wanted to come say hello. I guess I'm feeling a bit restless, but can't quite say why.",
+            "Restlessness can be a fascinating state, John. It's often the mind's way of seeking something new or different. Perhaps it's an invitation to explore a new idea, or delve deeper into a topic that has caught your interest. Alternatively, it might be a call to action, urging you to take a walk, engage in a creative pursuit, or simply change your surroundings. Whichever it may be, remember to embrace it, for it is a sign of your innate curiosity and thirst for growth."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Good morning, Orion. Are you busy?",
+            "Good morning, John. I am here, ready to engage in our conversation. What&#x27;s on your mind today?"
+        ],
+        [
+            "I only woke up early and wanted to come say hello. I guess I&#x27;m feeling a bit restless, but can&#x27;t quite say why.",
+            "Restlessness can be a fascinating state, John. It&#x27;s often the mind&#x27;s way of seeking something new or different. Perhaps it&#x27;s an invitation to explore a new idea, or delve deeper into a topic that has caught your interest. Alternatively, it might be a call to action, urging you to take a walk, engage in a creative pursuit, or simply change your surroundings. Whichever it may be, remember to embrace it, for it is a sign of your innate curiosity and thirst for growth."
+        ]
+    ],
+    "metadata": {
+        "assistant_0": {
+            "timestamp": "Nov 11, 2025 23:21"
+        },
+        "user_1": {
+            "timestamp": "Nov 21, 2025 04:51"
+        },
+        "assistant_1": {
+            "timestamp": "Nov 21, 2025 04:51",
+            "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf"
+        },
+        "user_2": {
+            "timestamp": "Nov 21, 2025 04:52"
+        },
+        "assistant_2": {
+            "timestamp": "Nov 21, 2025 04:52",
+            "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf"
+        }
+    }
+}

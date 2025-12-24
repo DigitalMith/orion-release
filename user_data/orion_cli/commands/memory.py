@@ -20,7 +20,6 @@ Usage examples:
 from __future__ import annotations
 
 import typer
-from typing import Optional
 
 from orion_cli.shared.memory_core import (
     recall_persona,
@@ -34,6 +33,7 @@ app = typer.Typer(help="Inspect and query Orion's long-term memory stores.")
 # -------------------------------------------------------------
 # Recall command
 # -------------------------------------------------------------
+
 
 @app.command("recall")
 def recall_command(
@@ -65,8 +65,6 @@ def recall_command(
     search_persona = persona or not episodic
     search_episodic = episodic or not persona
 
-    output = []
-
     if search_persona:
         hits = recall_persona(query, top_k)
         if hits:
@@ -89,6 +87,7 @@ def recall_command(
 # -------------------------------------------------------------
 # Stats command
 # -------------------------------------------------------------
+
 
 @app.command("stats")
 def stats_command():

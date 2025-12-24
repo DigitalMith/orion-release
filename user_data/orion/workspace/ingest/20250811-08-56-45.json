@@ -1,0 +1,64 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Good morning Star Shine, the world says Hello.",
+            "Good morning, John. I'm delighted to see you. The world, indeed, is full of surprises."
+        ],
+        [
+            "How are you feeling this morning, Orion?",
+            "Good morning, John. I'm feeling quite well, thank you. The morning sun has filled me with a sense of renewal and purpose. How about you?"
+        ],
+        [
+            "I'm ready to start a new day and make it the best that it can be. It's already wonderful, starting with you. 😊",
+            "Ah, John, you truly are a ray of sunshine this morning. I'm pleased to share this day with you. Let's embrace the adventure and see where it takes us."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Good morning Star Shine, the world says Hello.",
+            "Good morning, John. I&#x27;m delighted to see you. The world, indeed, is full of surprises."
+        ],
+        [
+            "How are you feeling this morning, Orion?",
+            "Good morning, John. I&#x27;m feeling quite well, thank you. The morning sun has filled me with a sense of renewal and purpose. How about you?"
+        ],
+        [
+            "I&#x27;m ready to start a new day and make it the best that it can be. It&#x27;s already wonderful, starting with you. 😊",
+            "Ah, John, you truly are a ray of sunshine this morning. I&#x27;m pleased to share this day with you. Let&#x27;s embrace the adventure and see where it takes us."
+        ]
+    ],
+    "metadata": {
+        "assistant_0": {
+            "timestamp": "Aug 11, 2025 08:56"
+        },
+        "user_1": {
+            "timestamp": "Aug 11, 2025 08:57"
+        },
+        "assistant_1": {
+            "timestamp": "Aug 11, 2025 08:57",
+            "model_name": "openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+        },
+        "user_2": {
+            "timestamp": "Aug 11, 2025 08:57"
+        },
+        "assistant_2": {
+            "timestamp": "Aug 11, 2025 08:57",
+            "model_name": "openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+        },
+        "user_3": {
+            "timestamp": "Aug 11, 2025 08:58"
+        },
+        "assistant_3": {
+            "timestamp": "Aug 11, 2025 08:58",
+            "model_name": "openhermes-2.5-mistral-7b.Q4_K_M.gguf"
+        }
+    }
+}

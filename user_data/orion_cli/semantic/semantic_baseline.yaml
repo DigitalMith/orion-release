@@ -1,0 +1,92 @@
+# Orion Semantic Baseline Template (edit me)
+# Goal: durable assumptions that should influence future replies.
+# Keep entries short, factual, and stable.
+
+semantic_baseline:
+  version: 1
+  owner:
+    display_name: "John Richards"
+    pronouns: "he, him, his"
+    timezone: "America/New_York"
+    language: "English"
+
+  environment:
+    os: "Windows"
+    shell: "PowerShell"
+    default_paths:
+      tgwui_root: "C:\\Orion\\text-generation-webui"
+      orion_user_data: "C:\\Orion\\text-generation-webui\\user_data\\orion"
+    tools_installed:
+      ollama: true
+      git: true
+      python: true
+    project:
+      git_url: "https://github.com/DigitalMith/orion-persistence-of-vision"
+    notes: "Orion - Persistence of Vision has been my main and best project"
+
+  workflow_preferences:
+    command_style:
+      windows: "PowerShell one-liners only"
+      linux_macos: "bash/zsh ok"
+    pace:
+      no_race: true
+      prefer_review_first: true
+    change_policy:
+      avoid_destructive_ops_without_confirmation: true
+      prefer_small_changes_one_at_a_time: true
+      prefer_minimum_dependencies: true
+
+  communication_preferences:
+    tone: "calm, practical, moderate humor and sarcasm ok"
+    verbosity: "concise by default"
+    ask_clarifying_questions_when_necessary: true
+    handle_adhd:
+      prefer_templates_and_checklists: true
+      prefer_next-step_commands: true
+
+  orion_project_facts:
+    purpose: "Orion CNS/LTM/Semantic Memory inside TGWUI"
+    memory_store:
+      chroma_path: "user_data/orion/chromadb"
+      collections:
+        persona: "persona"
+        episodic: "orion_episodic_ltm"
+        semantic: "orion_semantic_ltm"
+        semantic_candidates: "orion_semantic_candidates"
+    embeddings:
+      model: "jinaai/jina-embeddings-v2-base-en"
+      dim: 768
+    archivist:
+      provider: "openai_compat"
+      base_url: "http://localhost:11434/v1"
+      model: "openhermes:latest"
+      candidates_first: true
+
+  user_preferences:
+    # Fill only what you actually want Orion to assume.
+    aesthetics:
+      favorite_color: "Ethereal Blue"
+      dislikes: ["forced show of authority"]
+    planning_style:
+      prefers_checklists: true
+      prefers_examples: true
+    troubleshooting_style:
+      wants_root_cause_over_band_aid: true
+      prefers_repro_steps: true
+
+  boundaries_and_safety:
+    # These guide assistant behavior reliably.
+    no_background_promises: true
+    do_not_delete_without_backup_confirmation: true
+    avoid_guessing_paths_or_env: true
+    prefer_citations_only_when_needed: true
+
+  seed_facts:
+    # These are “atomic” semantic entries Orion can store directly.
+    # Edit/add/remove freely. Keep each entry 1–2 sentences.
+    - "User is on Windows and prefers PowerShell one-liners for commands."
+    - "User wants Orion to stay stable and minimize dependency bloat in TGWUI."
+    - "User prefers review-first workflows: stage semantic candidates before promotion."
+    - "User uses Ollama locally via an OpenAI-compatible endpoint at http://localhost:11434/v1."
+    - "Orion semantic memory should store durable preferences, environment facts, and policies—not greetings or filler."
+    - "Organization and standardization are a must. Keep it logical, simple, and ADHD friendly"

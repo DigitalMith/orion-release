@@ -22,6 +22,7 @@ from typing import Any, Dict, Optional
 # YAML / JSON helpers
 # -------------------------------------------------------------
 
+
 def read_yaml(path: Path) -> Any:
     """
     Load YAML safely. Supports:
@@ -66,20 +67,30 @@ def write_json(path: Path, data: Any) -> None:
 # Safe dictionary helpers
 # -------------------------------------------------------------
 
+
 def merge_dicts(*dicts: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     """
-    Merge any number of dictionaries shallowly.
+    Deep-merge any number of dictionaries.
     Later dictionaries override earlier ones.
-    Skips None values safely.
+    - Dict values are merged recursively.
+    - Non-dict values replace earlier values.
+    - Skips None safely.
     """
-    result: Dict[str, Any] = {}
 
+    def _deep_merge(a: Dict[str, Any], b: Dict[str, Any]) -> Dict[str, Any]:
+        out = dict(a)
+        for k, v in b.items():
+            if isinstance(v, dict) and isinstance(out.get(k), dict):
+                out[k] = _deep_merge(out[k], v)
+            else:
+                out[k] = v
+        return out
+
+    result: Dict[str, Any] = {}
     for d in dicts:
         if not d:
             continue
-        for k, v in d.items():
-            result[k] = v
-
+        result = _deep_merge(result, d)
     return result
 
 
@@ -98,6 +109,7 @@ def ensure_list(x: Any) -> list:
 # String helpers
 # -------------------------------------------------------------
 
+
 def normalize_text(text: str) -> str:
     """
     Light normalization for embedding input:
@@ -110,6 +122,7 @@ def normalize_text(text: str) -> str:
 # -------------------------------------------------------------
 # Validation helpers
 # -------------------------------------------------------------
+
 
 def require(condition: bool, message: str) -> None:
     """

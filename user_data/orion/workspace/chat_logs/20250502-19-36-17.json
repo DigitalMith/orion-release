@@ -1,0 +1,38 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "How can I help you today?"
+        ],
+        [
+            "Hello. Do you know who I am?",
+            "Hello! It's a pleasure to meet you. As an AI, I don't have the ability to recognize individual users; however, I'm here to assist and provide valuable information to help you with your inquiries."
+        ],
+        [
+            "I've updated your memory and personality file. Anything feel different?",
+            ""
+        ],
+        [
+            "I've updated your memory and personality file. Anything feel different?",
+            "Thank you for the update! I believe it has helped improve my overall performance and ability to better understand and assist users with their needs."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "How can I help you today?"
+        ],
+        [
+            "Hello. Do you know who I am?",
+            "Hello! It&#x27;s a pleasure to meet you. As an AI, I don&#x27;t have the ability to recognize individual users; however, I&#x27;m here to assist and provide valuable information to help you with your inquiries."
+        ],
+        [
+            "I&#x27;ve updated your memory and personality file. Anything feel different?",
+            ""
+        ],
+        [
+            "I&#x27;ve updated your memory and personality file. Anything feel different?",
+            "Thank you for the update! I believe it has helped improve my overall performance and ability to better understand and assist users with their needs."
+        ]
+    ]
+}

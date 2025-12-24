@@ -10,7 +10,7 @@
 </p>
 ---
 
-[![Version](https://img.shields.io/badge/version-3.49.2-purple)]()
+[![Version](https://img.shields.io/badge/version-3.50.0-purple)]()
 [![Status](https://img.shields.io/badge/status-beta-orange)]()
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)]()
 [![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-green)]()
@@ -21,7 +21,7 @@
 > _Orion is a long-lived, persona-driven LLM companion running on top of text-generation-webui (TGWUI), with ChromaDB-backed long-term memory, curated persona, and normalized chat logs._
 ---
 
-## Version: **`3.49.2`**
+## Version: **`3.50.0`**
 
 ### CNS & CLI Alignment Notes:
 
@@ -216,7 +216,7 @@ This version is primarily about stability, portability, and future-proofing embe
 
 Orion runs inside text-generation-webui (TGWUI) and uses ChromaDB plus the Orion CLI for long-term memory.
 
-### 0. Requirements
+### 1. Requirements
 
 - Python 3.11+
 - Git  
@@ -225,7 +225,7 @@ Orion runs inside text-generation-webui (TGWUI) and uses ChromaDB plus the Orion
 
 ---
 
-### 1. Install text-generation-webui
+### 2. Install text-generation-webui
 
 Follow the TGWUI project’s instructions and make sure you can:
 
@@ -244,7 +244,7 @@ C:\Orion\text-generation-webui\
 
 ---
 
-### 2. Copy Orion into TGWUI
+### 3. Copy Orion into TGWUI
 
 Clone or download this repo, then copy its contents into your TGWUI folder so you end up with:
 
@@ -264,7 +264,7 @@ Adjust paths if your TGWUI folder lives somewhere else.
 
 ---
 
-### 3. Create a virtual environment for Orion
+### 4. Create a virtual environment for Orion
 
 From your TGWUI root in PowerShell:
 
@@ -277,7 +277,7 @@ pip install --upgrade pip
 
 ---
 
-### 4. Install ChromaDB and Orion dependencies
+### 5. Install ChromaDB and Orion dependencies
 
 With venv-orion activated:
 
@@ -293,7 +293,7 @@ pip install -r user_data\orion_cli\requirements.txt
 
 ---
 
-### 5. Install the Orion CLI
+### 6. Install the Orion CLI
 
 From inside the CLI folder:
 
@@ -307,7 +307,7 @@ If the ~orion~ command prints its help text, the CLI is installed.
 
 ---
 
-### 6. Start TGWUI with Orion
+### 7. Start TGWUI with Orion
 
 From the TGWUI root:
 

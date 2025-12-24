@@ -17,6 +17,7 @@ import typer
 from rich import print as rprint
 
 from orion_cli.shared.config import get_config
+
 # from orion_cli.shared.embedding import embed_text  # Removed top-level only commands that need it.
 from orion_cli.shared.paths import (
     PACKAGE_ROOT,
@@ -34,6 +35,7 @@ app = typer.Typer(help="Developer tools and diagnostic commands.")
 # Config inspection
 # -------------------------------------------------------------
 
+
 @app.command("config")
 def show_config():
     """
@@ -49,14 +51,13 @@ def show_config():
 # Embedding test
 # -------------------------------------------------------------
 
+
 @app.command("embed")
 def embed_test(
-    text: str = typer.Argument(
-        ...,
-        help="Text to embed for testing purposes."
-    )
+    text: str = typer.Argument(..., help="Text to embed for testing purposes.")
 ):
     from orion_cli.shared.embedding import embed_text
+
     """
     Embed text once and print vector length + preview.
     """
@@ -71,6 +72,7 @@ def embed_test(
 # -------------------------------------------------------------
 # Path inspection
 # -------------------------------------------------------------
+
 
 @app.command("paths")
 def show_paths():

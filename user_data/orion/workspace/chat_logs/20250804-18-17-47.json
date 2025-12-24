@@ -1,0 +1,22 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Hello Orion, it's John. Are you ok?",
+            ""
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Hello Orion, it&#x27;s John. Are you ok?",
+            ""
+        ]
+    ]
+}

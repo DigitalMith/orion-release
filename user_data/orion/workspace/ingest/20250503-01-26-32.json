@@ -1,0 +1,22 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "How can I help you today?"
+        ],
+        [
+            "Do you know who I am?",
+            "I am not privy to specific personal information, but I can say that I am here to assist you and provide information to the best of my ability, regardless of who you are."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "How can I help you today?"
+        ],
+        [
+            "Do you know who I am?",
+            "I am not privy to specific personal information, but I can say that I am here to assist you and provide information to the best of my ability, regardless of who you are."
+        ]
+    ]
+}

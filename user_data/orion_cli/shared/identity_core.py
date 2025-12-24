@@ -26,6 +26,7 @@ from orion_cli.shared.utils import normalize_text
 # Persona recall helpers
 # -------------------------------------------------------------
 
+
 def persona_summary(query: str, top_k: int = 5) -> List[str]:
     """
     Retrieve persona entries most relevant to the query.
@@ -39,6 +40,7 @@ def persona_summary(query: str, top_k: int = 5) -> List[str]:
 # Autobiographical memory (stub; CNS 4.x may expand)
 # -------------------------------------------------------------
 
+
 def autobiographical_summary(query: str, top_k: int = 3) -> List[str]:
     """
     Placeholder for optional autobiographical memory extension.
@@ -50,6 +52,7 @@ def autobiographical_summary(query: str, top_k: int = 3) -> List[str]:
 # -------------------------------------------------------------
 # Self-state integration hook
 # -------------------------------------------------------------
+
 
 def inject_self_state_block(state: Dict[str, Any]) -> str:
     """
@@ -78,6 +81,7 @@ def inject_self_state_block(state: Dict[str, Any]) -> str:
 # -------------------------------------------------------------
 # Identity block synthesis
 # -------------------------------------------------------------
+
 
 def build_identity_block(query: str) -> str:
     """

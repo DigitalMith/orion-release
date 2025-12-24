@@ -21,7 +21,6 @@ The embedding system MUST be deterministic across:
 from __future__ import annotations
 
 import threading
-from functools import lru_cache
 from typing import List
 
 from sentence_transformers import SentenceTransformer
@@ -70,6 +69,7 @@ def _load_model():
 # Public embedding function
 # -------------------------------------------------------------
 
+
 def embed_text(text: str) -> List[float]:
     """
     Embed a single text input into a list of floats.
@@ -83,6 +83,7 @@ def embed_text(text: str) -> List[float]:
 # -------------------------------------------------------------
 # ChromaDB callback interface
 # -------------------------------------------------------------
+
 
 class OrionEmbeddingFunction(EmbeddingFunction):
     """

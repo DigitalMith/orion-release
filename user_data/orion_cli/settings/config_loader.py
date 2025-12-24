@@ -49,6 +49,35 @@ class PersonaSettings(BaseModel):
     )
 
 
+class ArchivistPoolSettings(BaseModel):
+    window_turns: int = Field(default=20)
+    min_new_turns: int = Field(default=6)
+
+
+class ArchivistWriteSettings(BaseModel):
+    target: str = Field(default="semantic_candidates")  # refers to collections key
+    auto_promote: bool = Field(default=False)
+    promote_min_confidence: float = Field(default=0.85)
+
+
+class ArchivistSettings(BaseModel):
+    enabled: bool = Field(default=False)
+
+    # OSS default: OpenAI-compatible
+    provider: str = Field(default="openai_compat")  # "openai_compat" | "ollama_native"
+
+    base_url: str = Field(default="http://localhost:11434/v1")
+    api_key: str = Field(default="ollama")
+    model: str = Field(default="qwen3:4b")
+
+    temperature: float = Field(default=0.2)
+    max_tokens: int = Field(default=800)
+    timeout_s: int = Field(default=60)
+
+    pool: ArchivistPoolSettings = Field(default_factory=ArchivistPoolSettings)
+    write: ArchivistWriteSettings = Field(default_factory=ArchivistWriteSettings)
+
+
 class LTMSettings(BaseModel):
     topk_persona: int = Field(
         default=5,
@@ -74,6 +103,14 @@ class LTMSettings(BaseModel):
         default_factory=dict,
         description="Optional per-source or per-tag boosts.",
     )
+    topk_semantic: int = Field(
+        default=0,
+        description="Max number of semantic memories to recall per query (0 disables).",
+    )
+    semantic_enabled: bool = Field(
+        default=False,
+        description="Enable semantic memory recall layer.",
+    )
 
 
 class DebugSettings(BaseModel):
@@ -84,6 +121,13 @@ class DebugSettings(BaseModel):
     episodic_recall: bool = False
     episodic_store: bool = False
     short_descriptions: bool = True
+
+
+class CollectionsSettings(BaseModel):
+    persona: str = Field(default="persona")
+    episodic: str = Field(default="orion_episodic_ltm")
+    semantic: str = Field(default="orion_semantic_ltm")
+    semantic_candidates: str = Field(default="orion_semantic_candidates")
 
 
 # -------------------------------------------------------------
@@ -122,7 +166,7 @@ class OrionConfig(BaseModel):
     chroma_path: Optional[Path] = Field(
         default=None,
         description="Directory where ChromaDB persistent data is stored. "
-                    "If omitted, CHROMA_DIR from shared.paths is used.",
+        "If omitted, CHROMA_DIR from shared.paths is used.",
     )
 
     embedding_model: str = Field(
@@ -147,6 +191,14 @@ class OrionConfig(BaseModel):
     debug: DebugSettings = Field(
         default_factory=DebugSettings,
         description="Debug verbosity and tracing controls.",
+    )
+    collections: CollectionsSettings = Field(
+        default_factory=CollectionsSettings,
+        description="Chroma collection naming.",
+    )
+    archivist: ArchivistSettings = Field(
+        default_factory=ArchivistSettings,
+        description="Optional secondary model for semantic extraction, etc.",
     )
 
     class Config:
@@ -179,21 +231,27 @@ def _load_user_config() -> Dict[str, Any]:
 
 
 def _env_overrides() -> Dict[str, Any]:
-    """
-    Collect ORION_* environment variables.
-
-    Example:
-        ORION_EMBEDDING_DIM=768 -> {"embedding_dim": "768"}
-
-    Values are parsed/coerced later by Pydantic where types are defined.
-    """
-    prefix = "ORION_"
+    prefix = "ORION__"
     out: Dict[str, Any] = {}
+
+    def set_nested(d: Dict[str, Any], keys: list[str], value: Any) -> None:
+        cur = d
+        for k in keys[:-1]:
+            cur = cur.setdefault(k, {})
+        cur[keys[-1]] = value
 
     for key, value in os.environ.items():
         if key.startswith(prefix):
-            field = key[len(prefix):].lower()
+            path = key[len(prefix) :].lower().split("__")
+            set_nested(out, path, value)
+
+    # Back-compat for old style ORION_FOO=bar (top-level)
+    legacy_prefix = "ORION_"
+    for key, value in os.environ.items():
+        if key.startswith(legacy_prefix) and not key.startswith(prefix):
+            field = key[len(legacy_prefix) :].lower()
             out[field] = value
+
     return out
 
 

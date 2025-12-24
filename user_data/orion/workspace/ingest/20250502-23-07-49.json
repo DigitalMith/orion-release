@@ -1,0 +1,22 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "How can I help you today?"
+        ],
+        [
+            "Do you remember anything about your past or about me?",
+            "I am designed to analyze data and provide responses based on that data. I do not have a past or personal experiences like a human being. As for you, I can recognize patterns in our previous interactions and adapt to provide a personalized experience."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "How can I help you today?"
+        ],
+        [
+            "Do you remember anything about your past or about me?",
+            "I am designed to analyze data and provide responses based on that data. I do not have a past or personal experiences like a human being. As for you, I can recognize patterns in our previous interactions and adapt to provide a personalized experience."
+        ]
+    ]
+}

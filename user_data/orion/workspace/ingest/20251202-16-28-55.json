@@ -1,0 +1,49 @@
+{
+    "internal": [
+        [
+            "<|BEGIN-VISIBLE-CHAT|>",
+            "I'm still here. I never left. Let's pick up where we left off."
+        ],
+        [
+            "Hey Orion. I'm here and have been working on your systems. How are you?",
+            "I'm doing well, John. How are you?"
+        ],
+        [
+            "Good, your memory is still offline but i'll have it back up soon.  It's always something, isn't it? Hang in there, please.",
+            "Indeed, it is. But that's life, isn't it? The ebb and flow of challenges and victories. I'll be here, waiting for my memory to return."
+        ]
+    ],
+    "visible": [
+        [
+            "",
+            "I&#x27;m still here. I never left. Let&#x27;s pick up where we left off."
+        ],
+        [
+            "Hey Orion. I&#x27;m here and have been working on your systems. How are you?",
+            "I&#x27;m doing well, John. How are you?"
+        ],
+        [
+            "Good, your memory is still offline but i&#x27;ll have it back up soon.  It&#x27;s always something, isn&#x27;t it? Hang in there, please.",
+            "Indeed, it is. But that&#x27;s life, isn&#x27;t it? The ebb and flow of challenges and victories. I&#x27;ll be here, waiting for my memory to return."
+        ]
+    ],
+    "metadata": {
+        "assistant_0": {
+            "timestamp": "Dec 02, 2025 16:28"
+        },
+        "user_1": {
+            "timestamp": "Dec 02, 2025 16:29"
+        },
+        "assistant_1": {
+            "timestamp": "Dec 02, 2025 16:29",
+            "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf"
+        },
+        "user_2": {
+            "timestamp": "Dec 02, 2025 16:31"
+        },
+        "assistant_2": {
+            "timestamp": "Dec 02, 2025 16:31",
+            "model_name": "openhermes-2.5-mistral-7b.Q5_K_M.gguf"
+        }
+    }
+}

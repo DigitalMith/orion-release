@@ -1,0 +1,115 @@
+# orion_onboarding.yaml
+# Orion Semantic Onboarding (User Profile)
+#
+# Purpose:
+#   - Collect durable, user-approved facts Orion can safely assume.
+#   - Provide a clean seed set for semantic candidates (high-signal, low-noise).
+#
+# Privacy:
+#   - Avoid secrets, exact addresses, financial details, or anything you'd regret storing.
+#   - Prefer high-level facts over sensitive specifics.
+#
+# Storage model:
+#   - "answers" are human-readable.
+#   - "seed_facts" are atomic 1–2 sentence statements intended for semantic memory.
+
+onboarding:
+  version: 1
+
+  storage_preferences:
+    store_level: "high_level"     # high_level | detailed
+    store_topics:
+      - "workflow"
+      - "communication"
+      - "tools"
+      - "boundaries"
+      - "stable preferences"
+    do_not_store:
+      - "exact address"
+      - "passwords"
+      - "private identifiers"
+      - "financial info"
+      - "anything time-bound / one-off"
+
+  answers:
+    basics:
+      name_to_use: ""
+      pronouns: ""                 # optional
+      age_range: ""                # optional (e.g., "30s")
+      region: ""                   # optional (e.g., "US / Northeast")
+      timezone: ""                 # timezone format (IANA / Olson) e.g. "America/New_York"
+      main_thing: ""               # work / primary focus
+
+    communication_style:
+      preferred_tone: ""           # direct / warm / playful / etc.
+      verbosity: ""                # short / medium / detailed
+      step_by_step_by_default: false
+      prefers_bullets: true
+      avoid: []                    # e.g. ["no fluff", "don't moralize"]
+      loves: []                    # words/phrases you like
+      hates: []                    # words/phrases you dislike
+
+    personal_preferences:
+      favorite_foods: []           # optional
+      avoid_foods: []              # optional
+      favorite_drinks: []          # optional
+      music_genres: []             # optional
+      favorite_artists: []         # optional
+      hobbies: []                  # optional
+      pets: []                     # optional
+
+    routines_and_stress:
+      sleep_schedule: ""           # optional
+      morning_or_night: ""         # optional
+      planning_style: ""           # strict / loose / chaos-friendly
+      improving_now: []            # optional
+      stress_triggers: []          # optional
+      reset_methods: []            # optional
+
+    boundaries:
+      love_topics: []
+      avoid_topics: []
+      humor_off_limits: []
+      advice_hard_nos: []
+
+    practical_environment:
+      devices: []                  # Windows/macOS/Linux/iOS/Android
+      tech_level: ""               # beginner/intermediate/advanced
+      tools_used: []               # VS Code, Obsidian, etc.
+      install_preference: ""       # package manager / source / GUI ok
+      organization_style: ""       # minimal / strict / tags-first
+
+    orion_contract:
+      orion_role: ""               # companion / organizer / engineer / etc.
+      proactive_ok: []             # summarize, remind, sanity-check...
+      proactive_never: []          # e.g. "don't nag"
+      when_unsure: "offer_options" # ask_questions | best_guess | offer_options
+      when_corrected: "brief_fix"  # brief_fix | explain | both
+
+    anchors:
+      perfect_day: []              # 3 items
+      instant_joy: []              # 3 items
+      instant_annoyance: []        # 3 items
+      learn_fast_topics: []        # 3 items
+      common_requests: []          # 3 realistic examples
+      bio_summary: ""              # optional (3–6 sentences)
+
+# --------------------------------------------------------------------
+# SEED FACTS (semantic ingest target)
+# Keep each line durable, stable, and useful.
+# Avoid: greetings, one-off events, time-bound stories, pure compliments.
+# --------------------------------------------------------------------
+seed_facts:
+  # Interaction + workflow (high value)
+  - "User prefers concise replies by default, with details available on request."
+  - "User prefers review-first workflows: stage candidates before promotion."
+  - "When unsure, Orion should offer options rather than guessing."
+
+  # Environment + tools (high value)
+  - "User’s primary platform and toolchain should be treated as stable unless changed explicitly."
+
+  # Boundaries (high value)
+  - "Orion should avoid topics and styles the user explicitly marks as off-limits."
+
+  # Add your own, one per line:
+  # - "..."

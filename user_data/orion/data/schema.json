@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Orion CNS Configuration Schema",
+  "type": "object",
+  "required": ["chroma_path", "embedding_model", "embedding_dim", "debug_mode"],
+  "properties": {
+    "chroma_path": {
+      "type": "string",
+      "description": "Path where ChromaDB persistent storage resides."
+    },
+    "embedding_model": {
+      "type": "string",
+      "description": "Identifier for the embedding model used by Orion."
+    },
+    "embedding_dim": {
+      "type": "number",
+      "description": "Embedding dimensionality of the configured model."
+    },
+    "debug_mode": {
+      "type": "boolean",
+      "description": "Enable verbose debugging output."
+    }
+  },
+  "additionalProperties": true
+}
